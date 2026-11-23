@@ -1,0 +1,21 @@
+version: "3.8"
+
+services:
+  gmail-proxy:
+    build: .
+    image: gmail-proxy:latest
+    container_name: gmail-proxy
+    restart: unless-stopped
+    # 使用 host 网络模式最简单，客户端直接用宿主机 IP:端口
+    # 如果不想用 host 模式，把 network_mode 注释掉，改用 ports 映射
+    network_mode: host
+    # ports:
+    #   - "995:995/tcp"   # POP3S
+    #   - "465:465/tcp"   # SMTPS
+    volumes:
+      - ./configs/config.yaml:/etc/gmail-proxy/config.yaml:ro
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"

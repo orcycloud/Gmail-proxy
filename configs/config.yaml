@@ -1,0 +1,34 @@
+# Gmail Proxy 配置文件
+# 每行一个 tunnel，支持字段:
+#   name / listen / upstream / timeout / outbound_proxy / outbound_auth
+# timeout 为单连接空闲超时，格式如 5m / 30s / 1h，默认 5m
+# outbound_proxy 出站 HTTP 代理地址，留空直连；格式 "ip:port"
+# outbound_auth 仅当代理需要 Basic 认证时填，格式 "user:pass"
+
+tunnels:
+  # ====== 场景 A：服务器能直连外网（无出站代理） ======
+  # - name: pop3s
+  #   listen: ":995"
+  #   upstream: "pop.gmail.com:995"
+  #   timeout: 5m
+  #
+  # - name: smtps
+  #   listen: ":465"
+  #   upstream: "smtp.gmail.com:465"
+  #   timeout: 5m
+
+  # ====== 场景 B：服务器也需要走 HTTP 代理才能出网 ======
+  # 代理地址改为你真实的代理 IP 和端口
+  - name: pop3s
+    listen: ":995"
+    upstream: "pop.gmail.com:995"
+    timeout: 5m
+    outbound_proxy: "10.0.0.1:10808"
+    # outbound_auth: "user:pass"   # 代理需要认证时取消注释
+
+  - name: smtps
+    listen: ":465"
+    upstream: "smtp.gmail.com:465"
+    timeout: 5m
+    outbound_proxy: "10.0.0.1:10808"
+    # outbound_auth: "user:pass"

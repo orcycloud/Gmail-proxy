@@ -1,0 +1,24 @@
+# Binaries
+bin/
+*.exe
+gmail-proxy
+gmail-proxy.exe
+
+# Build artifacts
+*.test
+*.out
+
+# IDE / OS
+.vs/
+.vscode/
+!.vscode/extensions.json
+.idea/
+*.swp
+.DS_Store
+Thumbs.db
+
+# Docker
+.docker/
+
+# Env / local overrides
+configs/config.local.yaml
